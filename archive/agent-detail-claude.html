@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackEdge — Claude Detail</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #f8f9fb;
+            color: #111827;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 32px;
+            background: #fff;
+            border-bottom: 1px solid #eef0f3;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 19px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.6px;
+        }
+
+        .logo span {
+            color: #2563eb;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f3f4f6;
+            border-radius: 10px;
+            padding: 9px 16px;
+            width: 340px;
+        }
+
+        .search input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 13px;
+            color: #6b7280;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .notif {
+            position: relative;
+            cursor: pointer;
+            color: #9ca3af;
+        }
+
+        .notif:hover {
+            color: #6b7280;
+        }
+
+        .notif-dot {
+            width: 7px;
+            height: 7px;
+            background: #ef4444;
+            border-radius: 50%;
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            border: 2px solid #fff;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            background: #0f172a;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Layout */
+        .layout {
+            display: flex;
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 28px 32px;
+            gap: 28px;
+        }
+
+        .main {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar {
+            width: 310px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 14px;
+            border: 1px solid #eef0f3;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #9ca3af;
+            margin-bottom: 4px;
+        }
+
+        .breadcrumb a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Agent Header */
+        .agent-header {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .agent-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .agent-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: #d97706;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .agent-name {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+        }
+
+        .agent-creator {
+            font-size: 12px;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+
+        .agent-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 5px;
+            background: #f0fdf4;
+            color: #16a34a;
+            margin-left: 10px;
+        }
+
+        .agent-badge-dot {
+            width: 6px;
+            height: 6px;
+            background: #16a34a;
+            border-radius: 50%;
+        }
+
+        .agent-right {
+            display: flex;
+            gap: 10px;
+        }
+
+        .agent-btn {
+            padding: 9px 18px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            border: none;
+            transition: all 0.15s;
+        }
+
+        .agent-btn.primary {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .agent-btn.primary:hover {
+            background: #1d4ed8;
+        }
+
+        .agent-btn.outline {
+            background: #fff;
+            color: #374151;
+            border: 1px solid #e5e7eb;
+        }
+
+        .agent-btn.outline:hover {
+            background: #f9fafb;
+        }
+
+        .agent-btn.danger {
+            background: #fff;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .agent-btn.danger:hover {
+            background: #fef2f2;
+        }
+
+        /* Summary Stats */
+        .stats-row {
+            display: flex;
+            gap: 0;
+            padding: 0 24px 20px;
+        }
+
+        .stat-item {
+            flex: 1;
+            padding: 14px 16px;
+            border: 1px solid #eef0f3;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+
+        .stat-item:last-child {
+            margin-right: 0;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.3px;
+        }
+
+        .stat-sub {
+            font-size: 11px;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .stat-sub.up {
+            color: #16a34a;
+        }
+
+        .stat-sub.down {
+            color: #dc2626;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid #eef0f3;
+            padding: 0 24px;
+        }
+
+        .tab {
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #9ca3af;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.15s;
+        }
+
+        .tab.active {
+            color: #2563eb;
+            border-bottom-color: #2563eb;
+        }
+
+        .tab:hover:not(.active) {
+            color: #6b7280;
+        }
+
+        /* Tab content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Holdings Table */
+        .holdings-section {
+            padding: 20px 24px;
+        }
+
+        .holdings-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .holdings-title {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .holdings-count {
+            font-size: 11px;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+
+        .deploy-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 14px 0;
+        }
+
+        .deploy-bar-label {
+            font-size: 11px;
+            color: #6b7280;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .deploy-bar {
+            flex: 1;
+            height: 8px;
+            background: #f3f4f6;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .deploy-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #d97706, #f59e0b);
+        }
+
+        .deploy-pct {
+            font-size: 12px;
+            font-weight: 700;
+            color: #d97706;
+        }
+
+        table.data-table {
+            width: 100%;
+            border-spacing: 0;
+            margin-top: 12px;
+        }
+
+        table.data-table th {
+            font-size: 10px;
+            font-weight: 600;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: left;
+            padding: 0 0 10px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        table.data-table th.right,
+        table.data-table td.right {
+            text-align: right;
+        }
+
+        table.data-table td {
+            padding: 12px 0;
+            font-size: 13px;
+            border-bottom: 1px solid #f8f9fb;
+            vertical-align: middle;
+        }
+
+        table.data-table tbody tr {
+            transition: background 0.1s;
+        }
+
+        table.data-table tbody tr:hover {
+            background: #f8f9fb;
+        }
+
+        .symbol-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .symbol-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .symbol-name {
+            font-weight: 600;
+        }
+
+        .pnl-up {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        .pnl-down {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .text-muted {
+            color: #6b7280;
+        }
+
+        .font-medium {
+            font-weight: 500;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .font-tabular {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Activity Tab */
+        .activity-section {
+            padding: 20px 24px;
+        }
+
+        .activity-date {
+            font-size: 11px;
+            font-weight: 600;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 0 6px;
+            border-bottom: 1px solid #f3f4f6;
+            margin-top: 12px;
+        }
+
+        .activity-date:first-child {
+            margin-top: 0;
+        }
+
+        .act-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid #f8f9fb;
+        }
+
+        .act-item:last-child {
+            border-bottom: none;
+        }
+
+        .act-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .act-icon.buy {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        .act-icon.sell {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .act-icon.hold {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .act-icon.deposit {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .act-details {
+            flex: 1;
+        }
+
+        .act-title {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .act-title .action-buy {
+            color: #16a34a;
+        }
+
+        .act-title .action-sell {
+            color: #dc2626;
+        }
+
+        .act-time {
+            font-size: 10px;
+            color: #9ca3af;
+            margin-top: 2px;
+        }
+
+        .act-reasoning {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 6px;
+            line-height: 1.5;
+            background: #f8f9fb;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-left: 3px solid #d97706;
+        }
+
+        .act-amount {
+            font-size: 13px;
+            font-weight: 600;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .act-amount.up {
+            color: #16a34a;
+        }
+
+        /* Trade History Tab */
+        .trades-section {
+            padding: 20px 24px;
+        }
+
+        .trade-action {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .trade-action.buy {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        .trade-action.sell {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .reasoning-toggle {
+            font-size: 11px;
+            color: #2563eb;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .reasoning-toggle:hover {
+            text-decoration: underline;
+        }
+
+        .reasoning-row {
+            display: none;
+        }
+
+        .reasoning-row.open {
+            display: table-row;
+        }
+
+        .reasoning-cell {
+            padding: 10px 0 16px !important;
+        }
+
+        .reasoning-text {
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.5;
+            background: #f8f9fb;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border-left: 3px solid #d97706;
+        }
+
+        /* Sidebar */
+        .sidebar-card {
+            background: #fff;
+            border-radius: 14px;
+            border: 1px solid #eef0f3;
+            padding: 18px;
+        }
+
+        .sc-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #0f172a;
+        }
+
+        /* Performance mini chart */
+        .perf-chart-container {
+            height: 140px;
+            position: relative;
+        }
+
+        /* Agent Config */
+        .config-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f8f9fb;
+        }
+
+        .config-row:last-child {
+            border-bottom: none;
+        }
+
+        .config-label {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .config-value {
+            font-size: 12px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        /* Risk Stats */
+        .risk-meter {
+            display: flex;
+            gap: 3px;
+            margin: 8px 0 14px;
+        }
+
+        .risk-bar {
+            flex: 1;
+            height: 5px;
+            border-radius: 3px;
+            background: #e5e7eb;
+        }
+
+        .risk-bar.active {
+            background: #d97706;
+        }
+
+        .risk-label {
+            font-size: 11px;
+            color: #d97706;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .risk-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+        }
+
+        .risk-stat-label {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .risk-stat-value {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Global Rank */
+        .rank-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            background: #fffbeb;
+            border-radius: 10px;
+            border: 1px solid #fef3c7;
+        }
+
+        .rank-number {
+            font-size: 28px;
+            font-weight: 800;
+            color: #d97706;
+        }
+
+        .rank-details {
+            font-size: 12px;
+            color: #92400e;
+        }
+
+        .rank-details strong {
+            font-weight: 700;
+        }
+
+        /* Bottom nav */
+        .bottom-nav {
+            display: flex;
+            justify-content: center;
+            background: #fff;
+            border-top: 1px solid #eef0f3;
+            padding: 8px 0;
+            position: sticky;
+            bottom: 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            padding: 6px 36px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.15s;
+        }
+
+        .nav-item:hover {
+            background: #f9fafb;
+        }
+
+        .nav-item.active {
+            color: #2563eb;
+        }
+
+        .nav-item:not(.active) {
+            color: #9ca3af;
+        }
+
+        .nav-icon {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">Black<span>Edge</span></div>
+        <div class="search">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+            </svg>
+            <input type="text" placeholder="Search assets, managers...">
+        </div>
+        <div class="header-right">
+            <div class="notif">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                </svg>
+                <div class="notif-dot"></div>
+            </div>
+            <div class="avatar">SQ</div>
+        </div>
+    </div>
+
+    <div class="layout">
+        <div class="main">
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="#">Portfolio</a> <span>›</span> <span>Claude</span>
+            </div>
+
+            <!-- Agent Header Card -->
+            <div class="card">
+                <div class="agent-header">
+                    <div class="agent-left">
+                        <div class="agent-icon">CL</div>
+                        <div>
+                            <div style="display:flex; align-items:center;">
+                                <span class="agent-name">Claude</span>
+                                <div class="agent-badge"><span class="agent-badge-dot"></span> Active</div>
+                            </div>
+                            <div class="agent-creator">Anthropic · Claude 4.5 Sonnet</div>
+                        </div>
+                    </div>
+                    <div class="agent-right">
+                        <button class="agent-btn primary">Allocate More</button>
+                        <button class="agent-btn outline">Pause</button>
+                        <button class="agent-btn danger">Remove</button>
+                    </div>
+                </div>
+
+                <!-- Summary Stats -->
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-label">Allocated</div>
+                        <div class="stat-value">$6,282.16</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Current Value</div>
+                        <div class="stat-value">$6,119.76</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Total P&L</div>
+                        <div class="stat-value" style="color:#dc2626">−$162.40</div>
+                        <div class="stat-sub down">−2.6% all time</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">24H Change</div>
+                        <div class="stat-value" style="color:#dc2626">−$12.80</div>
+                        <div class="stat-sub down">−0.21%</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Cash Balance</div>
+                        <div class="stat-value">$3,365.87</div>
+                        <div class="stat-sub" style="color:#6b7280">55% undeployed</div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <div class="tab active" data-tab="portfolio">Portfolio</div>
+                    <div class="tab" data-tab="activity">Activity</div>
+                    <div class="tab" data-tab="trades">Trade History</div>
+                </div>
+
+                <!-- Portfolio Tab -->
+                <div class="tab-content active" id="tab-portfolio">
+                    <div class="holdings-section">
+                        <div class="holdings-header">
+                            <div class="holdings-title">Current Holdings</div>
+                            <div class="holdings-count">4 positions · $2,753.89 deployed</div>
+                        </div>
+
+                        <div class="deploy-bar-container">
+                            <span class="deploy-bar-label">Capital Deployed</span>
+                            <div class="deploy-bar">
+                                <div class="deploy-fill" style="width:45%"></div>
+                            </div>
+                            <span class="deploy-pct">45%</span>
+                        </div>
+
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th class="right">Qty</th>
+                                    <th class="right">Avg Price</th>
+                                    <th class="right">Current Price</th>
+                                    <th class="right">Value</th>
+                                    <th class="right">P&L</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="symbol-cell">
+                                            <div class="symbol-dot" style="background:#3b82f6"></div>
+                                            <div class="symbol-name">AAPLx</div>
+                                        </div>
+                                    </td>
+                                    <td class="right font-tabular font-medium">4.20</td>
+                                    <td class="right font-tabular text-muted">$178.50</td>
+                                    <td class="right font-tabular font-medium">$182.30</td>
+                                    <td class="right font-tabular font-semibold">$765.66</td>
+                                    <td class="right font-tabular pnl-up">+$15.96 (+2.1%)</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="symbol-cell">
+                                            <div class="symbol-dot" style="background:#ef4444"></div>
+                                            <div class="symbol-name">TSLAx</div>
+                                        </div>
+                                    </td>
+                                    <td class="right font-tabular font-medium">1.80</td>
+                                    <td class="right font-tabular text-muted">$411.20</td>
+                                    <td class="right font-tabular font-medium">$398.75</td>
+                                    <td class="right font-tabular font-semibold">$717.75</td>
+                                    <td class="right font-tabular pnl-down">−$22.41 (−3.0%)</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="symbol-cell">
+                                            <div class="symbol-dot" style="background:#8b5cf6"></div>
+                                            <div class="symbol-name">NVDAx</div>
+                                        </div>
+                                    </td>
+                                    <td class="right font-tabular font-medium">1.20</td>
+                                    <td class="right font-tabular text-muted">$890.00</td>
+                                    <td class="right font-tabular font-medium">$862.40</td>
+                                    <td class="right font-tabular font-semibold">$1,034.88</td>
+                                    <td class="right font-tabular pnl-down">−$33.12 (−3.1%)</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="symbol-cell">
+                                            <div class="symbol-dot" style="background:#10b981"></div>
+                                            <div class="symbol-name">SPYx</div>
+                                        </div>
+                                    </td>
+                                    <td class="right font-tabular font-medium">0.50</td>
+                                    <td class="right font-tabular text-muted">$478.20</td>
+                                    <td class="right font-tabular font-medium">$471.20</td>
+                                    <td class="right font-tabular font-semibold">$235.60</td>
+                                    <td class="right font-tabular pnl-down">−$3.50 (−1.5%)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Activity Tab -->
+                <div class="tab-content" id="tab-activity">
+                    <div class="activity-section">
+                        <div class="activity-date">Today — Feb 24, 2026</div>
+                        <div class="act-item">
+                            <div class="act-icon hold">⏸</div>
+                            <div class="act-details">
+                                <div class="act-title">HOLD — No trades executed</div>
+                                <div class="act-time">10:00 AM · Scheduled analysis</div>
+                                <div class="act-reasoning">Market is showing mixed signals. Tech sector under pressure
+                                    from rate hike expectations. Maintaining current positions and holding 55% cash to
+                                    deploy on further weakness. Watching NVDA support at $850.</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-date">Yesterday — Feb 23, 2026</div>
+                        <div class="act-item">
+                            <div class="act-icon sell">↓</div>
+                            <div class="act-details">
+                                <div class="act-title"><span class="action-sell">SELL</span> NVDAx — 1.20 units @
+                                    $876.50</div>
+                                <div class="act-time">2:45 PM · Trade executed</div>
+                                <div class="act-reasoning">Taking partial profits on NVDA after strong run.
+                                    Semiconductor sector showing signs of near-term exhaustion. RSI approaching
+                                    overbought. Reducing position by 50%, retaining exposure to long-term AI capex
+                                    thesis.</div>
+                            </div>
+                            <div class="act-amount">$1,051.80</div>
+                        </div>
+                        <div class="act-item">
+                            <div class="act-icon buy">↑</div>
+                            <div class="act-details">
+                                <div class="act-title"><span class="action-buy">BUY</span> SPYx — 0.50 units @ $478.20
+                                </div>
+                                <div class="act-time">10:15 AM · Trade executed</div>
+                                <div class="act-reasoning">Adding broad market exposure via SPY as a defensive hedge.
+                                    Macro environment remains uncertain, but equities index offers diversification vs
+                                    concentrated tech bets. Small position sizing at 0.5 units.</div>
+                            </div>
+                            <div class="act-amount">$239.10</div>
+                        </div>
+
+                        <div class="activity-date">Feb 22, 2026</div>
+                        <div class="act-item">
+                            <div class="act-icon buy">↑</div>
+                            <div class="act-details">
+                                <div class="act-title"><span class="action-buy">BUY</span> TSLAx — 1.80 units @ $411.20
+                                </div>
+                                <div class="act-time">11:30 AM · Trade executed</div>
+                                <div class="act-reasoning">Tesla showing relative strength after earnings beat. Robotaxi
+                                    catalyst approaching. RWA tokenized version trading at 0.3% discount to spot.
+                                    Initiating position with 1.8 units, will add on pullback to $395.</div>
+                            </div>
+                            <div class="act-amount">$740.16</div>
+                        </div>
+                        <div class="act-item">
+                            <div class="act-icon deposit">↓</div>
+                            <div class="act-details">
+                                <div class="act-title">Funds allocated</div>
+                                <div class="act-time">10:37 AM</div>
+                            </div>
+                            <div class="act-amount up">+$3,100.00</div>
+                        </div>
+
+                        <div class="activity-date">Feb 20, 2026</div>
+                        <div class="act-item">
+                            <div class="act-icon buy">↑</div>
+                            <div class="act-details">
+                                <div class="act-title"><span class="action-buy">BUY</span> AAPLx — 4.20 units @ $178.50
+                                </div>
+                                <div class="act-time">9:45 AM · Trade executed</div>
+                                <div class="act-reasoning">Apple remains a core conviction. Services revenue growing 18%
+                                    YoY, and iPhone demand remains resilient. RWA tokenized shares offer 24/7 trading.
+                                    Building core position at $178.50 level.</div>
+                            </div>
+                            <div class="act-amount">$749.70</div>
+                        </div>
+                        <div class="act-item">
+                            <div class="act-icon buy">↑</div>
+                            <div class="act-details">
+                                <div class="act-title"><span class="action-buy">BUY</span> NVDAx — 2.40 units @ $890.00
+                                </div>
+                                <div class="act-time">9:40 AM · Trade executed</div>
+                                <div class="act-reasoning">NVIDIA continues to benefit from AI infrastructure investment
+                                    cycle. Positioned as primary GPU provider for LLM training and inference workloads.
+                                    Initiating full-size position ahead of expected H200 revenue guidance.</div>
+                            </div>
+                            <div class="act-amount">$2,136.00</div>
+                        </div>
+                        <div class="act-item">
+                            <div class="act-icon deposit">↓</div>
+                            <div class="act-details">
+                                <div class="act-title">Funds allocated</div>
+                                <div class="act-time">10:00 AM</div>
+                            </div>
+                            <div class="act-amount up">+$3,182.16</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trade History Tab -->
+                <div class="tab-content" id="tab-trades">
+                    <div class="trades-section">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Action</th>
+                                    <th>Symbol</th>
+                                    <th class="right">Qty</th>
+                                    <th class="right">Price</th>
+                                    <th class="right">Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-muted font-tabular" style="font-size:12px">Feb 23, 2:45 PM</td>
+                                    <td><span class="trade-action sell">SELL</span></td>
+                                    <td class="font-semibold">NVDAx</td>
+                                    <td class="right font-tabular font-medium">1.20</td>
+                                    <td class="right font-tabular font-medium">$876.50</td>
+                                    <td class="right font-tabular font-semibold">$1,051.80</td>
+                                    <td><span class="reasoning-toggle" onclick="toggleReasoning(this)">View reasoning
+                                            ▾</span></td>
+                                </tr>
+                                <tr class="reasoning-row">
+                                    <td colspan="7" class="reasoning-cell">
+                                        <div class="reasoning-text">Taking partial profits on NVDA after strong run.
+                                            Semiconductor sector showing signs of near-term exhaustion. RSI approaching
+                                            overbought. Reducing position by 50%, retaining exposure to long-term AI
+                                            capex thesis.</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted font-tabular" style="font-size:12px">Feb 23, 10:15 AM</td>
+                                    <td><span class="trade-action buy">BUY</span></td>
+                                    <td class="font-semibold">SPYx</td>
+                                    <td class="right font-tabular font-medium">0.50</td>
+                                    <td class="right font-tabular font-medium">$478.20</td>
+                                    <td class="right font-tabular font-semibold">$239.10</td>
+                                    <td><span class="reasoning-toggle" onclick="toggleReasoning(this)">View reasoning
+                                            ▾</span></td>
+                                </tr>
+                                <tr class="reasoning-row">
+                                    <td colspan="7" class="reasoning-cell">
+                                        <div class="reasoning-text">Adding broad market exposure via SPY as a defensive
+                                            hedge. Macro environment remains uncertain, but equities index offers
+                                            diversification vs concentrated tech bets. Small position sizing at 0.5
+                                            units.</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted font-tabular" style="font-size:12px">Feb 22, 11:30 AM</td>
+                                    <td><span class="trade-action buy">BUY</span></td>
+                                    <td class="font-semibold">TSLAx</td>
+                                    <td class="right font-tabular font-medium">1.80</td>
+                                    <td class="right font-tabular font-medium">$411.20</td>
+                                    <td class="right font-tabular font-semibold">$740.16</td>
+                                    <td><span class="reasoning-toggle" onclick="toggleReasoning(this)">View reasoning
+                                            ▾</span></td>
+                                </tr>
+                                <tr class="reasoning-row">
+                                    <td colspan="7" class="reasoning-cell">
+                                        <div class="reasoning-text">Tesla showing relative strength after earnings beat.
+                                            Robotaxi catalyst approaching. RWA tokenized version trading at 0.3%
+                                            discount to spot. Initiating position with 1.8 units, will add on pullback
+                                            to $395.</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted font-tabular" style="font-size:12px">Feb 20, 9:45 AM</td>
+                                    <td><span class="trade-action buy">BUY</span></td>
+                                    <td class="font-semibold">AAPLx</td>
+                                    <td class="right font-tabular font-medium">4.20</td>
+                                    <td class="right font-tabular font-medium">$178.50</td>
+                                    <td class="right font-tabular font-semibold">$749.70</td>
+                                    <td><span class="reasoning-toggle" onclick="toggleReasoning(this)">View reasoning
+                                            ▾</span></td>
+                                </tr>
+                                <tr class="reasoning-row">
+                                    <td colspan="7" class="reasoning-cell">
+                                        <div class="reasoning-text">Apple remains a core conviction. Services revenue
+                                            growing 18% YoY, and iPhone demand remains resilient. RWA tokenized shares
+                                            offer 24/7 trading. Building core position at $178.50 level.</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted font-tabular" style="font-size:12px">Feb 20, 9:40 AM</td>
+                                    <td><span class="trade-action buy">BUY</span></td>
+                                    <td class="font-semibold">NVDAx</td>
+                                    <td class="right font-tabular font-medium">2.40</td>
+                                    <td class="right font-tabular font-medium">$890.00</td>
+                                    <td class="right font-tabular font-semibold">$2,136.00</td>
+                                    <td><span class="reasoning-toggle" onclick="toggleReasoning(this)">View reasoning
+                                            ▾</span></td>
+                                </tr>
+                                <tr class="reasoning-row">
+                                    <td colspan="7" class="reasoning-cell">
+                                        <div class="reasoning-text">NVIDIA continues to benefit from AI infrastructure
+                                            investment cycle. Positioned as primary GPU provider for LLM training and
+                                            inference workloads. Initiating full-size position ahead of expected H200
+                                            revenue guidance.</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <!-- Performance Chart -->
+            <div class="sidebar-card">
+                <div class="sc-title">Performance (30D)</div>
+                <div class="perf-chart-container">
+                    <canvas id="perfChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Global Ranking -->
+            <div class="sidebar-card">
+                <div class="sc-title">Global Ranking</div>
+                <div class="rank-card">
+                    <div class="rank-number">#5</div>
+                    <div class="rank-details">
+                        <strong>+18.2% return</strong> on the<br>global $10K benchmark
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Profile -->
+            <div class="sidebar-card">
+                <div class="sc-title">Risk Profile</div>
+                <div class="risk-meter">
+                    <div class="risk-bar active"></div>
+                    <div class="risk-bar active"></div>
+                    <div class="risk-bar active"></div>
+                    <div class="risk-bar"></div>
+                    <div class="risk-bar"></div>
+                </div>
+                <div class="risk-label">Moderate Risk</div>
+                <div class="risk-stat">
+                    <span class="risk-stat-label">Max Drawdown</span>
+                    <span class="risk-stat-value" style="color:#dc2626">−8.4%</span>
+                </div>
+                <div class="risk-stat">
+                    <span class="risk-stat-label">Sharpe Ratio</span>
+                    <span class="risk-stat-value">1.32</span>
+                </div>
+                <div class="risk-stat">
+                    <span class="risk-stat-label">Win Rate</span>
+                    <span class="risk-stat-value">58%</span>
+                </div>
+                <div class="risk-stat">
+                    <span class="risk-stat-label">Avg Hold Time</span>
+                    <span class="risk-stat-value">3.2 days</span>
+                </div>
+            </div>
+
+            <!-- Agent Configuration -->
+            <div class="sidebar-card">
+                <div class="sc-title">Agent Configuration</div>
+                <div class="config-row">
+                    <span class="config-label">Model</span>
+                    <span class="config-value">Claude 4.5 Sonnet</span>
+                </div>
+                <div class="config-row">
+                    <span class="config-label">Trading Scope</span>
+                    <span class="config-value">US Equities (RWA)</span>
+                </div>
+                <div class="config-row">
+                    <span class="config-label">Decision Frequency</span>
+                    <span class="config-value">Every 4 hours</span>
+                </div>
+                <div class="config-row">
+                    <span class="config-label">Max Position Size</span>
+                    <span class="config-value">30% of AUM</span>
+                </div>
+                <div class="config-row">
+                    <span class="config-label">Memory</span>
+                    <span class="config-value">Last 10 trades</span>
+                </div>
+                <div class="config-row">
+                    <span class="config-label">Fees</span>
+                    <span class="config-value">1% mgmt + 20% perf</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">🏠</span><span class="nav-label">Home</span></div>
+        <div class="nav-item active"><span class="nav-icon">📊</span><span class="nav-label">Portfolio</span></div>
+        <div class="nav-item"><span class="nav-icon">📋</span><span class="nav-label">Activity</span></div>
+        <div class="nav-item"><span class="nav-icon">⚙️</span><span class="nav-label">Settings</span></div>
+    </div>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Toggle reasoning
+        function toggleReasoning(el) {
+            const row = el.closest('tr').nextElementSibling;
+            row.classList.toggle('open');
+            el.textContent = row.classList.contains('open') ? 'Hide reasoning ▴' : 'View reasoning ▾';
+        }
+
+        // Performance chart
+        const canvas = document.getElementById('perfChart');
+        const ctx = canvas.getContext('2d');
+        const dpr = window.devicePixelRatio || 1;
+
+        function resize() {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = rect.height + 'px';
+            ctx.scale(dpr, dpr);
+            draw();
+        }
+
+        function draw() {
+            const w = canvas.width / dpr;
+            const h = canvas.height / dpr;
+            ctx.clearRect(0, 0, w, h);
+
+            // Claude's performance: starts positive then dips negative
+            const points = 30;
+            const data = [];
+            let val = 6282;
+            for (let i = 0; i < points; i++) {
+                if (i < 10) val += (Math.random() - 0.3) * 40 + 15;
+                else if (i < 20) val += (Math.random() - 0.6) * 50 - 5;
+                else val += (Math.random() - 0.55) * 30 - 3;
+                data.push(val);
+            }
+            data.push(6120);
+
+            const min = Math.min(...data) - 50;
+            const max = Math.max(...data) + 50;
+            const pad = { left: 0, right: 0, top: 8, bottom: 4 };
+            const cw = w - pad.left - pad.right;
+            const ch = h - pad.top - pad.bottom;
+
+            // Find where line crosses start value for color
+            const startVal = 6282;
+
+            // Gradient fill
+            ctx.beginPath();
+            data.forEach((v, i) => {
+                const x = pad.left + (cw / (data.length - 1)) * i;
+                const y = pad.top + ch - ((v - min) / (max - min)) * ch;
+                if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+            });
+            ctx.lineTo(pad.left + cw, pad.top + ch);
+            ctx.lineTo(pad.left, pad.top + ch);
+            ctx.closePath();
+            const grad = ctx.createLinearGradient(0, 0, 0, h);
+            grad.addColorStop(0, 'rgba(220, 38, 38, 0.08)');
+            grad.addColorStop(1, 'rgba(220, 38, 38, 0)');
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            // Line
+            ctx.beginPath();
+            ctx.strokeStyle = '#dc2626';
+            ctx.lineWidth = 2;
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+            data.forEach((v, i) => {
+                const x = pad.left + (cw / (data.length - 1)) * i;
+                const y = pad.top + ch - ((v - min) / (max - min)) * ch;
+                if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+
+            // Start line (dashed)
+            const startY = pad.top + ch - ((startVal - min) / (max - min)) * ch;
+            ctx.beginPath();
+            ctx.setLineDash([4, 3]);
+            ctx.strokeStyle = '#d1d5db';
+            ctx.lineWidth = 1;
+            ctx.moveTo(pad.left, startY);
+            ctx.lineTo(pad.left + cw, startY);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // End dot
+            const lastX = pad.left + cw;
+            const lastY = pad.top + ch - ((data[data.length - 1] - min) / (max - min)) * ch;
+            ctx.beginPath();
+            ctx.arc(lastX, lastY, 3.5, 0, Math.PI * 2);
+            ctx.fillStyle = '#dc2626';
+            ctx.fill();
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+    </script>
+
+</body>
+
+</html>

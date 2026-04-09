@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackEdge — Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #f8f9fb;
+      color: #111827;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 32px;
+      background: #fff;
+      border-bottom: 1px solid #eef0f3;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 19px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.6px;
+    }
+
+    .logo span {
+      color: #2563eb;
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f3f4f6;
+      border-radius: 10px;
+      padding: 9px 16px;
+      width: 340px;
+    }
+
+    .search input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13px;
+      color: #6b7280;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .notif {
+      position: relative;
+      cursor: pointer;
+      color: #9ca3af;
+      transition: color 0.15s;
+    }
+
+    .notif:hover {
+      color: #6b7280;
+    }
+
+    .notif-dot {
+      width: 7px;
+      height: 7px;
+      background: #ef4444;
+      border-radius: 50%;
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      border: 2px solid #fff;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      background: #0f172a;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Layout */
+    .layout {
+      display: flex;
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 28px 32px;
+      gap: 28px;
+    }
+
+    .main {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .sidebar {
+      width: 310px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Card base */
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid #eef0f3;
+      padding: 22px;
+    }
+
+    /* Hero Balance */
+    .hero {
+      padding: 28px;
+    }
+
+    .hero-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 6px;
+    }
+
+    .hero-balance {
+      font-size: 38px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+    }
+
+    .hero-change {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 8px;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .hero-change.up {
+      color: #16a34a;
+      background: #f0fdf4;
+    }
+
+    .hero-change.down {
+      color: #dc2626;
+      background: #fef2f2;
+    }
+
+    .hero-chart {
+      margin-top: 20px;
+      height: 120px;
+      position: relative;
+    }
+
+    /* Your Fund Managers */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .section-link {
+      font-size: 12px;
+      font-weight: 500;
+      color: #2563eb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .section-link:hover {
+      text-decoration: underline;
+    }
+
+    .managers-grid {
+      display: flex;
+      gap: 12px;
+    }
+
+    .manager-card {
+      flex: 1;
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #eef0f3;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .manager-card:hover {
+      border-color: #d1d5db;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .manager-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .manager-card:nth-child(1)::before {
+      background: #10a37f;
+    }
+
+    .manager-card:nth-child(2)::before {
+      background: #d97706;
+    }
+
+    .mc-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .mc-name {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .mc-creator {
+      font-size: 10px;
+      color: #9ca3af;
+    }
+
+    .mc-status {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .mc-status.active {
+      background: #f0fdf4;
+      color: #16a34a;
+    }
+
+    .mc-stats {
+      display: flex;
+      gap: 16px;
+    }
+
+    .mc-stat-label {
+      font-size: 10px;
+      color: #9ca3af;
+      margin-bottom: 2px;
+    }
+
+    .mc-stat-value {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .mc-stat-value.up {
+      color: #16a34a;
+    }
+
+    .mc-stat-value.down {
+      color: #dc2626;
+    }
+
+    /* Leaderboard */
+    .lb-table {
+      width: 100%;
+      border-spacing: 0;
+    }
+
+    .lb-table th {
+      font-size: 10px;
+      font-weight: 600;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: left;
+      padding: 0 12px 10px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .lb-table th:last-child,
+    .lb-table td:last-child {
+      text-align: right;
+    }
+
+    .lb-table th:nth-child(3),
+    .lb-table td:nth-child(3) {
+      text-align: right;
+    }
+
+    .lb-table th:nth-child(4),
+    .lb-table td:nth-child(4) {
+      text-align: right;
+    }
+
+    .lb-table td {
+      padding: 12px;
+      font-size: 13px;
+      border-bottom: 1px solid #f8f9fb;
+      vertical-align: middle;
+    }
+
+    .lb-table tr {
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .lb-table tbody tr:hover {
+      background: #f8f9fb;
+    }
+
+    .lb-rank-cell {
+      font-size: 12px;
+      font-weight: 700;
+      color: #9ca3af;
+      width: 32px;
+    }
+
+    .lb-rank-cell .crown {
+      font-size: 14px;
+    }
+
+    .lb-model {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lb-model-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .lb-model-name {
+      font-weight: 600;
+    }
+
+    .lb-model-creator {
+      font-size: 10px;
+      color: #9ca3af;
+    }
+
+    .lb-return {
+      font-weight: 700;
+    }
+
+    .lb-return.up {
+      color: #16a34a;
+    }
+
+    .lb-return.down {
+      color: #dc2626;
+    }
+
+    .lb-value {
+      font-weight: 500;
+    }
+
+    .lb-deployed-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lb-deployed-track {
+      width: 48px;
+      height: 4px;
+      background: #f3f4f6;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .lb-deployed-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: #2563eb;
+    }
+
+    .lb-deployed-pct {
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .lb-add-btn {
+      font-size: 11px;
+      font-weight: 500;
+      color: #2563eb;
+      background: #eff6ff;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+
+    .lb-add-btn:hover {
+      background: #dbeafe;
+    }
+
+    .lb-add-btn.added {
+      color: #16a34a;
+      background: #f0fdf4;
+    }
+
+    /* Sidebar cards */
+    .sidebar-card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid #eef0f3;
+      padding: 18px;
+    }
+
+    .sc-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: #0f172a;
+    }
+
+    /* Recent Activity */
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f8f9fb;
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .activity-icon.buy {
+      background: #f0fdf4;
+      color: #16a34a;
+    }
+
+    .activity-icon.sell {
+      background: #fef2f2;
+      color: #dc2626;
+    }
+
+    .activity-icon svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .activity-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .activity-action {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .activity-meta {
+      font-size: 10px;
+      color: #9ca3af;
+    }
+
+    .activity-amount {
+      font-size: 12px;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .activity-amount.up {
+      color: #16a34a;
+    }
+
+    .see-all {
+      font-size: 12px;
+      color: #2563eb;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 6px;
+    }
+
+    .see-all:hover {
+      text-decoration: underline;
+    }
+
+    /* Market Overview */
+    .market-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .market-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 0;
+      border-bottom: 1px solid #f8f9fb;
+    }
+
+    .market-row:last-child {
+      border-bottom: none;
+    }
+
+    .market-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .market-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .market-name {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .market-sub {
+      font-size: 10px;
+      color: #9ca3af;
+    }
+
+    .market-right {
+      text-align: right;
+    }
+
+    .market-price {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .market-change {
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .market-change.up {
+      color: #16a34a;
+    }
+
+    .market-change.down {
+      color: #dc2626;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .qa-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 12px 8px;
+      border-radius: 10px;
+      border: 1px solid #eef0f3;
+      cursor: pointer;
+      transition: all 0.15s;
+      background: #fff;
+    }
+
+    .qa-btn:hover {
+      background: #f8f9fb;
+      border-color: #d1d5db;
+    }
+
+    .qa-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+
+    .qa-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: #6b7280;
+    }
+
+    .qa-btn.primary .qa-icon {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .qa-btn.secondary .qa-icon {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    /* Bottom nav */
+    .bottom-nav {
+      display: flex;
+      justify-content: center;
+      background: #fff;
+      border-top: 1px solid #eef0f3;
+      padding: 8px 0;
+      position: sticky;
+      bottom: 0;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 6px 36px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.15s;
+    }
+
+    .nav-item:hover {
+      background: #f9fafb;
+    }
+
+    .nav-item.active {
+      color: #2563eb;
+    }
+
+    .nav-item:not(.active) {
+      color: #9ca3af;
+    }
+
+    .nav-icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .nav-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    /* Canvas */
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">Black<span>Edge</span></div>
+    <div class="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2">
+        <circle cx="11" cy="11" r="8" />
+        <path d="m21 21-4.3-4.3" />
+      </svg>
+      <input type="text" placeholder="Search assets, managers...">
+    </div>
+    <div class="header-right">
+      <div class="notif">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+        </svg>
+        <div class="notif-dot"></div>
+      </div>
+      <div class="avatar">SQ</div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="main">
+
+      <!-- 1. Hero Balance -->
+      <div class="card hero">
+        <div class="hero-label">Total Portfolio Value</div>
+        <div class="hero-balance">$12,482.16</div>
+        <div class="hero-change up">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 4l-8 8h5v8h6v-8h5z" />
+          </svg>
+          +$324.18 (+2.67%) today
+        </div>
+        <div class="hero-chart">
+          <canvas id="heroChart"></canvas>
+        </div>
+      </div>
+
+      <!-- 2. Your Fund Managers -->
+      <div>
+        <div class="section-header">
+          <div class="section-title">Your Fund Managers</div>
+          <a class="section-link" href="#">Manage →</a>
+        </div>
+        <div class="managers-grid">
+          <div class="manager-card">
+            <div class="mc-top">
+              <div>
+                <div class="mc-name">ChatGPT</div>
+                <div class="mc-creator">OpenAI</div>
+              </div>
+              <div class="mc-status active">Active</div>
+            </div>
+            <div class="mc-stats">
+              <div>
+                <div class="mc-stat-label">Allocated</div>
+                <div class="mc-stat-value">$6,200</div>
+              </div>
+              <div>
+                <div class="mc-stat-label">Current</div>
+                <div class="mc-stat-value">$6,362</div>
+              </div>
+              <div>
+                <div class="mc-stat-label">Return</div>
+                <div class="mc-stat-value up">+2.6%</div>
+              </div>
+            </div>
+          </div>
+          <div class="manager-card">
+            <div class="mc-top">
+              <div>
+                <div class="mc-name">Claude</div>
+                <div class="mc-creator">Anthropic</div>
+              </div>
+              <div class="mc-status active">Active</div>
+            </div>
+            <div class="mc-stats">
+              <div>
+                <div class="mc-stat-label">Allocated</div>
+                <div class="mc-stat-value">$6,282</div>
+              </div>
+              <div>
+                <div class="mc-stat-label">Current</div>
+                <div class="mc-stat-value">$6,120</div>
+              </div>
+              <div>
+                <div class="mc-stat-label">Return</div>
+                <div class="mc-stat-value down">−2.6%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. AI Leaderboard -->
+      <div class="card" style="padding: 18px 0;">
+        <div class="section-header" style="padding: 0 22px; margin-bottom: 12px;">
+          <div class="section-title">AI Leaderboard</div>
+          <a class="section-link" href="#">View Chart →</a>
+        </div>
+        <table class="lb-table">
+          <thead>
+            <tr>
+              <th style="padding-left:22px">#</th>
+              <th>Model</th>
+              <th>Return</th>
+              <th>Value</th>
+              <th>Deployed</th>
+              <th style="padding-right:22px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="lb-rank-cell" style="padding-left:22px"><span class="crown">👑</span></td>
+              <td>
+                <div class="lb-model">
+                  <div class="lb-model-icon" style="background:#2563eb">DS</div>
+                  <div>
+                    <div class="lb-model-name">DeepSeek</div>
+                    <div class="lb-model-creator">DeepSeek AI</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="lb-return up">+31.5%</span></td>
+              <td class="lb-value">$13,150</td>
+              <td>
+                <div class="lb-deployed-bar">
+                  <div class="lb-deployed-track">
+                    <div class="lb-deployed-fill" style="width:92%"></div>
+                  </div>
+                  <span class="lb-deployed-pct">92%</span>
+                </div>
+              </td>
+              <td style="padding-right:22px"><button class="lb-add-btn">+ Add</button></td>
+            </tr>
+            <tr>
+              <td class="lb-rank-cell" style="padding-left:22px">2</td>
+              <td>
+                <div class="lb-model">
+                  <div class="lb-model-icon" style="background:#7c3aed">QW</div>
+                  <div>
+                    <div class="lb-model-name">Qwen</div>
+                    <div class="lb-model-creator">Alibaba</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="lb-return up">+25.3%</span></td>
+              <td class="lb-value">$12,530</td>
+              <td>
+                <div class="lb-deployed-bar">
+                  <div class="lb-deployed-track">
+                    <div class="lb-deployed-fill" style="width:70%"></div>
+                  </div>
+                  <span class="lb-deployed-pct">70%</span>
+                </div>
+              </td>
+              <td style="padding-right:22px"><button class="lb-add-btn">+ Add</button></td>
+            </tr>
+            <tr>
+              <td class="lb-rank-cell" style="padding-left:22px">3</td>
+              <td>
+                <div class="lb-model">
+                  <div class="lb-model-icon" style="background:#10a37f">GP</div>
+                  <div>
+                    <div class="lb-model-name">ChatGPT</div>
+                    <div class="lb-model-creator">OpenAI</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="lb-return up">+22.4%</span></td>
+              <td class="lb-value">$12,237</td>
+              <td>
+                <div class="lb-deployed-bar">
+                  <div class="lb-deployed-track">
+                    <div class="lb-deployed-fill" style="width:78%"></div>
+                  </div>
+                  <span class="lb-deployed-pct">78%</span>
+                </div>
+              </td>
+              <td style="padding-right:22px"><button class="lb-add-btn added">✓ Added</button></td>
+            </tr>
+            <tr>
+              <td class="lb-rank-cell" style="padding-left:22px">4</td>
+              <td>
+                <div class="lb-model">
+                  <div class="lb-model-icon" style="background:#4285f4">GM</div>
+                  <div>
+                    <div class="lb-model-name">Gemini</div>
+                    <div class="lb-model-creator">Google</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="lb-return up">+19.7%</span></td>
+              <td class="lb-value">$11,970</td>
+              <td>
+                <div class="lb-deployed-bar">
+                  <div class="lb-deployed-track">
+                    <div class="lb-deployed-fill" style="width:55%"></div>
+                  </div>
+                  <span class="lb-deployed-pct">55%</span>
+                </div>
+              </td>
+              <td style="padding-right:22px"><button class="lb-add-btn">+ Add</button></td>
+            </tr>
+            <tr>
+              <td class="lb-rank-cell" style="padding-left:22px">5</td>
+              <td>
+                <div class="lb-model">
+                  <div class="lb-model-icon" style="background:#d97706">CL</div>
+                  <div>
+                    <div class="lb-model-name">Claude</div>
+                    <div class="lb-model-creator">Anthropic</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="lb-return up">+18.2%</span></td>
+              <td class="lb-value">$11,820</td>
+              <td>
+                <div class="lb-deployed-bar">
+                  <div class="lb-deployed-track">
+                    <div class="lb-deployed-fill" style="width:45%"></div>
+                  </div>
+                  <span class="lb-deployed-pct">45%</span>
+                </div>
+              </td>
+              <td style="padding-right:22px"><button class="lb-add-btn added">✓ Added</button></td>
+            </tr>
+            <tr>
+              <td class="lb-rank-cell" style="padding-left:22px">6</td>
+              <td>
+                <div class="lb-model">
+                  <div class="lb-model-icon" style="background:#374151">GK</div>
+                  <div>
+                    <div class="lb-model-name">Grok</div>
+                    <div class="lb-model-creator">xAI</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="lb-return down">−2.1%</span></td>
+              <td class="lb-value">$9,790</td>
+              <td>
+                <div class="lb-deployed-bar">
+                  <div class="lb-deployed-track">
+                    <div class="lb-deployed-fill" style="width:60%"></div>
+                  </div>
+                  <span class="lb-deployed-pct">60%</span>
+                </div>
+              </td>
+              <td style="padding-right:22px"><button class="lb-add-btn">+ Add</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Quick Actions -->
+      <div class="sidebar-card">
+        <div class="sc-title">Quick Actions</div>
+        <div class="quick-actions">
+          <div class="qa-btn primary">
+            <div class="qa-icon">↓</div>
+            <div class="qa-label">Deposit</div>
+          </div>
+          <div class="qa-btn secondary">
+            <div class="qa-icon">↑</div>
+            <div class="qa-label">Withdraw</div>
+          </div>
+          <div class="qa-btn secondary">
+            <div class="qa-icon">⊕</div>
+            <div class="qa-label">Allocate</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="sidebar-card">
+        <div class="sc-title">Recent Activity</div>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-icon buy">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 4l-8 8h5v8h6v-8h5z" />
+              </svg>
+            </div>
+            <div class="activity-details">
+              <div class="activity-action">ChatGPT bought AAPLx</div>
+              <div class="activity-meta">3.2 units · 2h ago</div>
+            </div>
+            <div class="activity-amount up">+$571</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon sell">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 20l8-8h-5V4H9v8H4z" />
+              </svg>
+            </div>
+            <div class="activity-details">
+              <div class="activity-action">Claude sold NVDAx</div>
+              <div class="activity-meta">1.2 units · 3h ago</div>
+            </div>
+            <div class="activity-amount">$186</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon buy">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 4l-8 8h5v8h6v-8h5z" />
+              </svg>
+            </div>
+            <div class="activity-details">
+              <div class="activity-action">ChatGPT bought SPYx</div>
+              <div class="activity-meta">0.8 units · 5h ago</div>
+            </div>
+            <div class="activity-amount up">+$380</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon buy">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 4l-8 8h5v8h6v-8h5z" />
+              </svg>
+            </div>
+            <div class="activity-details">
+              <div class="activity-action">Claude bought TSLAx</div>
+              <div class="activity-meta">1.5 units · 6h ago</div>
+            </div>
+            <div class="activity-amount up">+$412</div>
+          </div>
+        </div>
+        <a href="#" class="see-all">View all activity →</a>
+      </div>
+
+      <!-- Market Overview -->
+      <div class="sidebar-card">
+        <div class="sc-title">Market Overview</div>
+        <div class="market-list">
+          <div class="market-row">
+            <div class="market-left">
+              <div class="market-icon" style="background:#f7931a">₿</div>
+              <div>
+                <div class="market-name">Bitcoin</div>
+                <div class="market-sub">BTC</div>
+              </div>
+            </div>
+            <div class="market-right">
+              <div class="market-price">$98,450</div>
+              <div class="market-change up">+2.1%</div>
+            </div>
+          </div>
+          <div class="market-row">
+            <div class="market-left">
+              <div class="market-icon" style="background:#627eea">Ξ</div>
+              <div>
+                <div class="market-name">Ethereum</div>
+                <div class="market-sub">ETH</div>
+              </div>
+            </div>
+            <div class="market-right">
+              <div class="market-price">$3,102</div>
+              <div class="market-change down">−0.8%</div>
+            </div>
+          </div>
+          <div class="market-row">
+            <div class="market-left">
+              <div class="market-icon" style="background:#9945ff">◎</div>
+              <div>
+                <div class="market-name">Solana</div>
+                <div class="market-sub">SOL</div>
+              </div>
+            </div>
+            <div class="market-right">
+              <div class="market-price">$245</div>
+              <div class="market-change up">+5.2%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <div class="nav-item active"><span class="nav-icon">🏠</span><span class="nav-label">Home</span></div>
+    <div class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Portfolio</span></div>
+    <div class="nav-item"><span class="nav-icon">📋</span><span class="nav-label">Activity</span></div>
+    <div class="nav-item"><span class="nav-icon">⚙️</span><span class="nav-label">Settings</span></div>
+  </div>
+
+  <script>
+    // Hero portfolio mini-chart
+    const canvas = document.getElementById('heroChart');
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+
+    function resize() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      ctx.scale(dpr, dpr);
+      draw();
+    }
+
+    function draw() {
+      const w = canvas.width / dpr;
+      const h = canvas.height / dpr;
+      ctx.clearRect(0, 0, w, h);
+
+      // Generate smooth upward portfolio line
+      const points = 60;
+      const data = [];
+      let val = 10000;
+      for (let i = 0; i < points; i++) {
+        val += (Math.random() - 0.38) * 80 + 20;
+        data.push(val);
+      }
+      data.push(12482);
+
+      const min = Math.min(...data) - 100;
+      const max = Math.max(...data) + 100;
+      const pad = { left: 0, right: 0, top: 8, bottom: 4 };
+      const cw = w - pad.left - pad.right;
+      const ch = h - pad.top - pad.bottom;
+
+      // Gradient fill
+      ctx.beginPath();
+      data.forEach((v, i) => {
+        const x = pad.left + (cw / (data.length - 1)) * i;
+        const y = pad.top + ch - ((v - min) / (max - min)) * ch;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.lineTo(pad.left + cw, pad.top + ch);
+      ctx.lineTo(pad.left, pad.top + ch);
+      ctx.closePath();
+      const grad = ctx.createLinearGradient(0, 0, 0, h);
+      grad.addColorStop(0, 'rgba(37, 99, 235, 0.12)');
+      grad.addColorStop(1, 'rgba(37, 99, 235, 0)');
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Line
+      ctx.beginPath();
+      ctx.strokeStyle = '#2563eb';
+      ctx.lineWidth = 2;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      data.forEach((v, i) => {
+        const x = pad.left + (cw / (data.length - 1)) * i;
+        const y = pad.top + ch - ((v - min) / (max - min)) * ch;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      // End dot
+      const lastX = pad.left + cw;
+      const lastY = pad.top + ch - ((data[data.length - 1] - min) / (max - min)) * ch;
+      ctx.beginPath();
+      ctx.arc(lastX, lastY, 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#2563eb';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(lastX, lastY, 7, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(37, 99, 235, 0.2)';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+  </script>
+
+</body>
+
+</html>
